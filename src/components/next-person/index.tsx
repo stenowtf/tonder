@@ -11,6 +11,7 @@ import { type Action } from "../../types/action";
 import { Actions } from "../actions";
 import { ErrorMessage } from "../error-message";
 import { MainImage } from "../main-image";
+
 import styles from "./styles.module.css";
 
 type NextPersonProps = {

@@ -3,8 +3,8 @@ import { useEffect, useRef, type FC } from "react";
 import toast from "react-hot-toast";
 import { translate } from "../../i18n";
 import { type Action } from "../../types/action";
-import { DislikeButton } from "../dislike-button";
-import { LikeButton } from "../like-button";
+import { ButtonDislike } from "../button-dislike";
+import { ButtonLike } from "../button-like";
 
 type ActionsProps = {
   loading: boolean;
@@ -46,8 +46,8 @@ export const Actions: FC<ActionsProps> = ({
           width: "100%",
         }}
       >
-        <LikeButton onClick={() => handleAction("like")} />
-        <DislikeButton onClick={() => handleAction("dislike")} />
+        <ButtonLike onClick={() => handleAction("like")} />
+        <ButtonDislike onClick={() => handleAction("dislike")} />
       </Grid>
     </>
   );

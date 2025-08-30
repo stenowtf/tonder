@@ -1,23 +1,23 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import { Button } from "@mui/material";
 import { type FC } from "react";
 import { translate } from "../../i18n";
 
-type LikeButtonProps = {
+type ButtonDislikeProps = {
   onClick: () => void;
 };
 
-export const LikeButton: FC<LikeButtonProps> = ({ onClick }) => {
+export const ButtonDislike: FC<ButtonDislikeProps> = ({ onClick }) => {
   return (
     <Button
       variant="contained"
-      color="success"
-      startIcon={<FavoriteIcon />}
+      color="error"
+      startIcon={<NotInterestedIcon />}
       size="large"
       onClick={onClick}
       sx={{ flexGrow: 1 }}
     >
-      {translate("like")}
+      {translate("button.dislike")}
     </Button>
   );
 };

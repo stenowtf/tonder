@@ -1,5 +1,4 @@
 export const en = {
-  description: "A Tinder-like app built with React, MUI, and TypeScript.",
   dislike: "Dislike",
   error: {
     noUsersAvailable: "No users available.",
@@ -10,5 +9,5 @@ export const en = {
     likedUserIdIsRequired: "Liked user ID is required.",
   },
   like: "Like",
-  title: "A Tinder-like App",
+  title: "Tonder",
 };

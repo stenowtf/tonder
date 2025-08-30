@@ -16,6 +16,7 @@ type DialogMatchProps = {
   personAPhoto: string;
   personBName: string;
   personBPhoto: string;
+  handleBack: () => void;
 };
 
 export const DialogMatch: FC<DialogMatchProps> = ({
@@ -24,6 +25,7 @@ export const DialogMatch: FC<DialogMatchProps> = ({
   personAPhoto,
   personBName,
   personBPhoto,
+  handleBack,
 }) => {
   return (
     <Dialog
@@ -58,10 +60,28 @@ export const DialogMatch: FC<DialogMatchProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="text">{translate("match.back")}</Button>
-        <Button variant="outlined" autoFocus>
-          {translate("match.startChatting")}
-        </Button>
+        <Box
+          display="flex"
+          flexDirection={{ xs: "column-reverse", sm: "row" }}
+          justifyContent="space-between"
+          width="100%"
+          gap={1}
+        >
+          <Button
+            variant="text"
+            sx={{ sm: { width: "auto", flex: 1 } }}
+            onClick={handleBack}
+          >
+            {translate("match.back")}
+          </Button>
+          <Button
+            variant="outlined"
+            autoFocus
+            sx={{ sm: { width: "auto", flex: 1 } }}
+          >
+            {translate("match.startChatting")}
+          </Button>
+        </Box>
       </DialogActions>
     </Dialog>
   );

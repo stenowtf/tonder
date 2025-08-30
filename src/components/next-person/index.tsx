@@ -122,6 +122,7 @@ export const NextPerson: FC<NextPersonProps> = ({
         personAPhoto={currentUserPhoto}
         personBName={checkMatchResponse?.matchedPerson?.name ?? ""}
         personBPhoto={checkMatchResponse?.matchedPerson?.photo ?? ""}
+        handleBack={doNextPerson}
       />
     );
   }
@@ -129,7 +130,7 @@ export const NextPerson: FC<NextPersonProps> = ({
   return (
     <div className={styles.container}>
       {nextPersonResponse?.nextPerson ? (
-        <ImageListItem component={"div"}>
+        <ImageListItem component="div">
           <MainImage
             imageSrc={nextPersonResponse.nextPerson.photo || ""}
             imageAlt={nextPersonResponse.nextPerson.name || ""}

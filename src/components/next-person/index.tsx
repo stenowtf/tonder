@@ -12,18 +12,27 @@ import { Actions } from "../actions";
 import { ErrorMessage } from "../error-message";
 import { MainImage } from "../main-image";
 
+import { type CheckMatchResponse } from "../../api/check-match";
+import { DialogMatch } from "../dialog-match";
 import styles from "./styles.module.css";
 
 type NextPersonProps = {
   currentUserId: number;
+  currentUserName: string;
+  currentUserPhoto: string;
 };
 
-export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
+export const NextPerson: FC<NextPersonProps> = ({
+  currentUserId,
+  currentUserName,
+  currentUserPhoto,
+}) => {
   const [mainImageLoaded, setMainImageLoaded] = useState<boolean>(false);
+  const [, setDalogMatchOpen] = useState<boolean>(false);
+
   const [hideInfoOnMouseOver, setHideInfoOnMouseOver] =
     useState<boolean>(false);
 
-  // undifined = loading, null = no more profiles, Person = next profile
   const [nextPersonResponse, setNextPersonResponse] = useState<
     NextPersonResponse | undefined | null
   >(undefined);
@@ -32,12 +41,31 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
     ActionResponse | undefined
   >(undefined);
 
-  const fetchNextPerson = useCallback(() => {
+  const [checkMatchResponse, setCheckMatchResponse] = useState<
+    CheckMatchResponse | undefined
+  >(undefined);
+
+  const doNextPerson = useCallback(() => {
     import("../../api/next-person").then((mod) => {
       const response = mod.default({ currentUserId });
       setNextPersonResponse(response);
     });
   }, [currentUserId]);
+
+  const doCheckMatch = useCallback(() => {
+    import("../../api/check-match").then((mod) => {
+      const response = mod.default({
+        userAId: currentUserId,
+        userBId: nextPersonResponse?.nextPerson?.id,
+      });
+
+      setCheckMatchResponse(response);
+
+      if (!response.match) {
+        doNextPerson();
+      }
+    });
+  }, [currentUserId, doNextPerson, nextPersonResponse?.nextPerson?.id]);
 
   const doAction = useCallback(
     (action: Action) => {
@@ -51,11 +79,11 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
 
         if (response.errorCode === undefined) {
           setMainImageLoaded(false);
-          fetchNextPerson();
+          doCheckMatch();
         }
       });
     },
-    [currentUserId, fetchNextPerson, nextPersonResponse?.nextPerson?.id]
+    [currentUserId, doCheckMatch, nextPersonResponse?.nextPerson?.id]
   );
 
   const handleAction = (action: Action) => {
@@ -65,13 +93,26 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
   };
 
   useEffect(() => {
-    fetchNextPerson();
-  }, [currentUserId, fetchNextPerson]);
+    doNextPerson();
+  }, [currentUserId, doNextPerson]);
 
   if (nextPersonResponse?.nextPerson === null) {
     return (
       <ErrorMessage
         message={translate(`error.${nextPersonResponse?.errorCode}`)}
+      />
+    );
+  }
+
+  if (checkMatchResponse?.match) {
+    return (
+      <DialogMatch
+        open={true}
+        personAName={currentUserName}
+        personAPhoto={currentUserPhoto}
+        personBName={checkMatchResponse?.matchedPerson?.name ?? ""}
+        personBPhoto={checkMatchResponse?.matchedPerson?.photo ?? ""}
+        setOpen={setDalogMatchOpen}
       />
     );
   }

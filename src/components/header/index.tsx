@@ -6,15 +6,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { type FC } from "react";
 import { translate } from "../../i18n";
-import type { Person } from "../../types/person";
 
 import styles from "./styles.module.css";
 
 type HeaderProps = {
-  currentUser: Person | null;
+  currentUserName: string | undefined;
+  currentUserPhoto: string | undefined;
 };
 
-export const Header: FC<HeaderProps> = ({ currentUser }) => {
+export const Header: FC<HeaderProps> = ({
+  currentUserName,
+  currentUserPhoto,
+}) => {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -25,15 +28,15 @@ export const Header: FC<HeaderProps> = ({ currentUser }) => {
             noWrap
             className={styles.title}
           >
-            {translate("title")}
+            {translate("tonder")}
           </Typography>
 
-          {currentUser && (
+          {currentUserName && currentUserPhoto && (
             <Box className={styles.userBox}>
               <Typography noWrap component="div" variant="body1">
-                {currentUser.name}
+                {currentUserName}
               </Typography>
-              <Avatar alt={currentUser.name} src={currentUser.photo} />
+              <Avatar alt={currentUserName} src={currentUserPhoto} />
             </Box>
           )}
         </Toolbar>

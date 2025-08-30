@@ -34,10 +34,17 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <Header currentUser={currentUser} />
+      <Header
+        currentUserName={currentUser?.name}
+        currentUserPhoto={currentUser?.photo}
+      />
       <Container maxWidth="xs">
         {currentUser ? (
-          <NextPerson currentUserId={currentUser.id} />
+          <NextPerson
+            currentUserId={currentUser.id}
+            currentUserName={currentUser.name}
+            currentUserPhoto={currentUser.photo}
+          />
         ) : (
           <ErrorMessage
             message={translate("error.noUsersAvailable")}
@@ -45,7 +52,6 @@ const App = () => {
             onClick={init}
           />
         )}
-
         <Toaster />
       </Container>
     </>

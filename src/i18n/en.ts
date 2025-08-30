@@ -10,5 +10,4 @@ export const en = {
   },
   like: "Like",
   title: "A Tinder-like App",
-  yearsOld: "years old",
 };

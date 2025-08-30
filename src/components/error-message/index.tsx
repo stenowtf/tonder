@@ -4,7 +4,7 @@ import { translate } from "../../i18n";
 
 type ErrorMessageProps = {
   message: string;
-  showReload: boolean;
+  showReload?: boolean;
   onClick?: () => void;
 };
 

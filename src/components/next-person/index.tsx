@@ -1,11 +1,12 @@
-import { Skeleton } from "@mui/material";
+import { ImageListItem, ImageListItemBar } from "@mui/material";
 import { useCallback, useEffect, useState, type FC } from "react";
+import { updateUserLikes } from "../../api/db";
 import { type NextPersonResponse } from "../../api/next-person";
 import { translate } from "../../i18n";
-import { DislikeButton } from "../dislike-button";
-import { LikeButton } from "../like-button";
+import { Actions } from "../actions";
+import { ErrorMessage } from "../error-message";
+import { MainImage } from "../main-image";
 import styles from "./styles.module.css";
-
 type NextPersonProps = {
   currentUserId: number;
 };
@@ -25,14 +26,11 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
     });
   }, [currentUserId]);
 
-  const handleLike = () => {
-    // updateUserLikes(currentUserId, response?.nextPerson?.id!, true);
-    fetchNextPerson();
-  };
-
-  const handleDislike = () => {
-    // updateUserLikes(currentUserId, response?.nextPerson?.id!, false);
-    fetchNextPerson();
+  const handleAction = (action: boolean) => {
+    if (response?.nextPerson) {
+      updateUserLikes(currentUserId, response.nextPerson.id, action);
+      fetchNextPerson();
+    }
   };
 
   useEffect(() => {
@@ -41,64 +39,39 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
 
   if (response?.nextPerson === null) {
     return (
-      <div className={styles.noMoreProfiles}>
-        {response?.error || translate("error.noMoreProfilesAvailable")}
+      <div className={styles.container}>
+        <ErrorMessage
+          message={
+            response?.error || translate("error.noMoreProfilesAvailable")
+          }
+        />
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.card}>
-        {response?.nextPerson === undefined ? (
-          <Skeleton variant="rectangular" width="100%" height="100%" />
-        ) : (
-          <img
-            src={response.nextPerson.photo}
-            alt={response.nextPerson.name}
-            className={styles.photo}
-            sizes="(max-width: 600px) 100vw, 400px"
-            onLoad={() => setMainImageLoaded(true)}
+      <ImageListItem component={"div"}>
+        <MainImage
+          loading={response?.nextPerson === undefined}
+          imageSrc={response?.nextPerson?.photo || ""}
+          imageAlt={response?.nextPerson?.name || ""}
+          onLoad={() => setMainImageLoaded(true)}
+        />
+        {mainImageLoaded && (
+          <ImageListItemBar
+            title={`${response?.nextPerson?.name}, ${response?.nextPerson?.age}`}
+            subtitle={response?.nextPerson?.bio}
+            sx={{
+              "& .MuiImageListItemBar-subtitle": {
+                lineHeight: "1.2",
+              },
+            }}
           />
         )}
+      </ImageListItem>
 
-        <div
-          className={
-            mainImageLoaded
-              ? `${styles.info} ${styles.infoGradient}`
-              : styles.info
-          }
-        >
-          <div className={styles.infoHeader}>
-            {response?.nextPerson === undefined ? (
-              <Skeleton width={100} />
-            ) : (
-              <span className={styles.name}>{response.nextPerson.name}</span>
-            )}
-
-            {response?.nextPerson === undefined ? (
-              <Skeleton width={50} />
-            ) : (
-              <span className={styles.age}>
-                {response.nextPerson.age} {translate("yearsOld")}
-              </span>
-            )}
-          </div>
-
-          {response?.nextPerson === undefined ? (
-            <Skeleton width="100%" />
-          ) : (
-            <span className={styles.bio}>{response.nextPerson.bio}</span>
-          )}
-        </div>
-      </div>
-
-      {mainImageLoaded && (
-        <div className={styles.actions}>
-          <LikeButton onClick={handleLike} />
-          <DislikeButton onClick={handleDislike} />
-        </div>
-      )}
+      <Actions loading={!mainImageLoaded} handleAction={handleAction} />
     </div>
   );
 };

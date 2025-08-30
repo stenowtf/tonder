@@ -15,6 +15,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ onClick }) => {
       startIcon={<FavoriteIcon />}
       size="large"
       onClick={onClick}
+      sx={{ flexGrow: 1 }}
     >
       {translate("like")}
     </Button>

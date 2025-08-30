@@ -3,7 +3,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { CssBaseline } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { ErrorMessage } from "./components/error-message";
 import { Header } from "./components/header";
@@ -33,9 +33,12 @@ const App = () => {
   return (
     <>
       <CssBaseline />
+
       <Header currentUser={currentUser} />
       {currentUser ? (
-        <NextPerson currentUserId={currentUser.id} />
+        <Container maxWidth="xs">
+          <NextPerson currentUserId={currentUser.id} />
+        </Container>
       ) : (
         <ErrorMessage
           message={translate("error.noUsersAvailable")}

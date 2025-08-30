@@ -15,6 +15,7 @@ export const DislikeButton: FC<DislikeButtonProps> = ({ onClick }) => {
       startIcon={<NotInterestedIcon />}
       size="large"
       onClick={onClick}
+      sx={{ flexGrow: 1 }}
     >
       {translate("dislike")}
     </Button>

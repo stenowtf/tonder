@@ -122,7 +122,10 @@ export const NextPerson: FC<NextPersonProps> = ({
         personAPhoto={currentUserPhoto}
         personBName={checkMatchResponse?.matchedPerson?.name ?? ""}
         personBPhoto={checkMatchResponse?.matchedPerson?.photo ?? ""}
-        handleBack={doNextPerson}
+        handleBack={() => {
+          setCheckMatchResponse(undefined);
+          doNextPerson();
+        }}
       />
     );
   }

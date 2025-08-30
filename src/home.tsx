@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 
 import { Container, CssBaseline } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "./components/error-message";
 import { Header } from "./components/header";
 import { Loader } from "./components/loader";
@@ -44,6 +45,8 @@ const App = () => {
             onClick={init}
           />
         )}
+
+        <Toaster />
       </Container>
     </>
   );

@@ -1,6 +1,5 @@
-import { users } from "../fixtures/users";
 import { type Person } from "../types/person";
-import { resetAllUsers } from "./db";
+import { getRemainingUsers, getUserById, resetAllUsers } from "./db";
 
 type NextPersonRequest = {
   currentUserId: number | undefined;
@@ -16,26 +15,19 @@ export default function handler({
 }: NextPersonRequest): NextPersonResponse {
   if (!currentUserId) {
     return {
-      nextPerson: null,
+      nextPerson: undefined,
       errorCode: "currentUserIdIsRequired",
     };
   }
 
-  const currentUser = users.find((u) => u.id === currentUserId);
-  const shownIds: number[] = currentUser
-    ? [...currentUser.liked, ...currentUser.disliked]
-    : [];
-
-  console.log("Current user:", currentUser);
-  console.log("Shown IDs:", shownIds);
+  const currentUser = getUserById(currentUserId);
 
   if (!currentUser) {
     return { nextPerson: null, errorCode: "userNotFound" };
   }
 
-  const remainingPersons = users.filter(
-    (user) => user.id !== currentUserId && !shownIds.includes(user.id)
-  );
+  const remainingPersons = getRemainingUsers(currentUserId);
+
   const nextPerson =
     remainingPersons.length > 0
       ? remainingPersons[Math.floor(Math.random() * remainingPersons.length)]

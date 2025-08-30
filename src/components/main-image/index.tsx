@@ -2,7 +2,7 @@ import { type FC } from "react";
 import styles from "./styles.module.css";
 
 type MainImageProps = {
-  imageSrc: string;
+  imageSrc: string | undefined;
   imageAlt: string;
   setMainImageLoaded: (loaded: boolean) => void;
   setHideInfoOnMouseOver: (hide: boolean) => void;
@@ -14,6 +14,10 @@ export const MainImage: FC<MainImageProps> = ({
   setMainImageLoaded,
   setHideInfoOnMouseOver,
 }) => {
+  if (!imageSrc) {
+    return null;
+  }
+
   return (
     <img
       src={imageSrc}

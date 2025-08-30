@@ -7,6 +7,7 @@ export const en = {
     currentUserIdIsRequired: "Current user ID is required.",
     noMoreProfilesAvailable: "No more profiles available.",
     userNotFound: "User not found.",
+    likedUserIdIsRequired: "Liked user ID is required.",
   },
   like: "Like",
   title: "A Tinder-like App",

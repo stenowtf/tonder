@@ -12,41 +12,34 @@ export const resetAllUsers = () => {
 };
 
 export const getUserById = (id: number) => {
-  return users.find((user) => user.id === id) || null;
+  return allUsers.find((user) => user.id === id) || null;
 };
 
-export const initUserForCurrentUser = (currentUserId: number) => {
-  return users.find((user) => user.id === currentUserId) || null;
-};
+const getShownUserIds = (id: number) => {
+  const currentUser = getUserById(id);
 
-export const getOtherUsers = (currentUserId: number) => {
-  return users.filter((user) => user.id !== currentUserId);
-};
-
-export const updateUserLikes = (
-  userId: number,
-  likedId: number,
-  isLiked: boolean
-) => {
-  const currentUser: Person | undefined = allUsers.find((u) => u.id === userId);
-
-  console.log("updateUserLikes:", userId, likedId);
-
-  if (currentUser) {
-    if (isLiked) {
-      if (!currentUser.liked.includes(likedId)) {
-        currentUser.liked.push(likedId);
-      }
-    } else {
-      if (!currentUser.disliked.includes(likedId)) {
-        currentUser.disliked.push(likedId);
-      }
-    }
-
-    allUsers = allUsers.map((user) =>
-      user.id === userId ? currentUser : user
-    );
-
-    console.log("Updated allUsers:", allUsers);
+  if (!currentUser) {
+    return [];
   }
+
+  return [...currentUser.liked, ...currentUser.disliked];
+};
+
+export const getRemainingUsers = (id: number) => {
+  const shownIds = getShownUserIds(id);
+
+  return allUsers.filter(
+    (user) => user.id !== id && !shownIds.includes(user.id)
+  );
+};
+
+export const updateCurrentUser = (updatedUser: Person) => {
+  console.log("Updating user:", updatedUser);
+  console.log("Before update, allUsers:", allUsers);
+
+  allUsers = allUsers.map((user) =>
+    user.id === updatedUser.id ? updatedUser : user
+  );
+
+  console.log("After update, allUsers:", allUsers);
 };

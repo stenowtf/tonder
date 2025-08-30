@@ -1,7 +1,7 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import { type FC } from "react";
-import { translate } from "../i18n";
+import { translate } from "../../i18n";
 
 type LikeButtonProps = {
   onClick: () => void;

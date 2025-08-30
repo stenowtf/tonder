@@ -1,10 +1,10 @@
 import { Skeleton } from "@mui/material";
 import { useCallback, useEffect, useState, type FC } from "react";
-import { type NextPersonResponse } from "../api/next-person";
-import { translate } from "../i18n";
-import { DislikeButton } from "./dislike-button";
-import { LikeButton } from "./like-button";
-import styles from "./next-person.module.css";
+import { type NextPersonResponse } from "../../api/next-person";
+import { translate } from "../../i18n";
+import { DislikeButton } from "../dislike-button";
+import { LikeButton } from "../like-button";
+import styles from "./styles.module.css";
 
 type NextPersonProps = {
   currentUserId: number;
@@ -19,7 +19,7 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
   >(undefined);
 
   const fetchNextPerson = useCallback(() => {
-    import("../api/next-person").then((mod) => {
+    import("../../api/next-person").then((mod) => {
       const res = mod.default({ currentUserId });
       setResponse(res);
     });

@@ -1,7 +1,7 @@
 import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import { Button } from "@mui/material";
 import { type FC } from "react";
-import { translate } from "../i18n";
+import { translate } from "../../i18n";
 
 type DislikeButtonProps = {
   onClick: () => void;

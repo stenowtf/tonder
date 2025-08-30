@@ -5,13 +5,17 @@ import "@fontsource/roboto/700.css";
 
 import { CssBaseline } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { ErrorMessage } from "./components/error-message";
 import { Header } from "./components/header";
+import { Loader } from "./components/loader";
 import { NextPerson } from "./components/next-person";
 import { translate } from "./i18n";
 import { type Person } from "./types/person";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState<Person | null>(null);
+  const [currentUser, setCurrentUser] = useState<Person | undefined | null>(
+    undefined
+  );
 
   const init = useCallback(() => {
     import("./api/init").then((mod) => {
@@ -22,6 +26,10 @@ const App = () => {
 
   useEffect(() => init(), [init]);
 
+  if (currentUser === undefined) {
+    return <Loader />;
+  }
+
   return (
     <>
       <CssBaseline />
@@ -29,7 +37,11 @@ const App = () => {
       {currentUser ? (
         <NextPerson currentUserId={currentUser.id} />
       ) : (
-        <div>{translate("error.noUsersAvailable")}</div>
+        <ErrorMessage
+          message={translate("error.noUsersAvailable")}
+          showReload
+          onClick={init}
+        />
       )}
     </>
   );

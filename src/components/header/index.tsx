@@ -5,9 +5,9 @@ import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { type FC } from "react";
-import { translate } from "../i18n";
-import type { Person } from "../types/person";
-import styles from "./header.module.css";
+import { translate } from "../../i18n";
+import type { Person } from "../../types/person";
+import styles from "./styles.module.css";
 
 type HeaderProps = {
   currentUser: Person | null;

@@ -12,7 +12,9 @@ type NextPersonProps = {
 };
 
 export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
-  const [mainImageLoaded, setMainImageLoaded] = useState(false);
+  const [mainImageLoaded, setMainImageLoaded] = useState<boolean>(false);
+  const [hideInfoOnMouseOver, setHideInfoOnMouseOver] =
+    useState<boolean>(false);
 
   // undifined = loading, null = no more profiles, Person = next profile
   const [response, setResponse] = useState<
@@ -51,9 +53,10 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
         <MainImage
           imageSrc={response?.nextPerson?.photo || ""}
           imageAlt={response?.nextPerson?.name || ""}
-          onLoad={() => setMainImageLoaded(true)}
+          setMainImageLoaded={setMainImageLoaded}
+          setHideInfoOnMouseOver={setHideInfoOnMouseOver}
         />
-        {mainImageLoaded && (
+        {mainImageLoaded && !hideInfoOnMouseOver && (
           <ImageListItemBar
             title={`${response?.nextPerson?.name}, ${response?.nextPerson?.age}`}
             subtitle={response?.nextPerson?.bio}

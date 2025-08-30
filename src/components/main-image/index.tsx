@@ -4,20 +4,24 @@ import styles from "./styles.module.css";
 type MainImageProps = {
   imageSrc: string;
   imageAlt: string;
-  onLoad: () => void;
+  setMainImageLoaded: (loaded: boolean) => void;
+  setHideInfoOnMouseOver: (hide: boolean) => void;
 };
 
 export const MainImage: FC<MainImageProps> = ({
   imageSrc,
   imageAlt,
-  onLoad,
+  setMainImageLoaded,
+  setHideInfoOnMouseOver,
 }) => {
   return (
     <img
       src={imageSrc}
       alt={imageAlt}
       className={styles.photo}
-      onLoad={onLoad}
+      onLoad={() => setMainImageLoaded(true)}
+      onMouseOver={() => setHideInfoOnMouseOver(true)}
+      onMouseOut={() => setHideInfoOnMouseOver(false)}
       fetchPriority="high"
     />
   );

@@ -47,15 +47,19 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
           action,
         });
         setActionResponse(response);
+
+        if (response.errorCode === undefined) {
+          setMainImageLoaded(false);
+          fetchNextPerson();
+        }
       });
     },
-    [currentUserId, nextPersonResponse?.nextPerson?.id]
+    [currentUserId, fetchNextPerson, nextPersonResponse?.nextPerson?.id]
   );
 
   const handleAction = (action: Action) => {
     if (nextPersonResponse?.nextPerson) {
       doAction(action);
-      fetchNextPerson();
     }
   };
 

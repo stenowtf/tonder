@@ -16,7 +16,6 @@ type DialogMatchProps = {
   personAPhoto: string;
   personBName: string;
   personBPhoto: string;
-  setOpen: (open: boolean) => void;
 };
 
 export const DialogMatch: FC<DialogMatchProps> = ({
@@ -25,18 +24,17 @@ export const DialogMatch: FC<DialogMatchProps> = ({
   personAPhoto,
   personBName,
   personBPhoto,
-  setOpen,
 }) => {
   return (
     <Dialog
-      onClose={() => setOpen(false)}
-      aria-labelledby="customized-dialog-title"
       open={open}
+      aria-labelledby="dialog-match-title"
+      aria-describedby="dialog-match-description"
     >
-      <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+      <DialogTitle sx={{ m: 0, p: 2 }} id="dialog-match-title">
         {translate("match.itsAMatch")}
       </DialogTitle>
-      <DialogContent dividers>
+      <DialogContent dividers id="dialog-match-description">
         <Typography gutterBottom>
           {translate("match.youAnd")}
           <strong> {personBName} </strong>
@@ -60,7 +58,10 @@ export const DialogMatch: FC<DialogMatchProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus>{translate("match.startChatting")}</Button>
+        <Button variant="text">{translate("match.back")}</Button>
+        <Button variant="outlined" autoFocus>
+          {translate("match.startChatting")}
+        </Button>
       </DialogActions>
     </Dialog>
   );

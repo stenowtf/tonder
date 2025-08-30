@@ -14,6 +14,7 @@ import { MainImage } from "../main-image";
 
 import { type CheckMatchResponse } from "../../api/check-match";
 import { DialogMatch } from "../dialog-match";
+import { DialogNoMoreProfiles } from "../dialog-no-more-profiles";
 import styles from "./styles.module.css";
 
 type NextPersonProps = {
@@ -28,7 +29,6 @@ export const NextPerson: FC<NextPersonProps> = ({
   currentUserPhoto,
 }) => {
   const [mainImageLoaded, setMainImageLoaded] = useState<boolean>(false);
-  const [, setDalogMatchOpen] = useState<boolean>(false);
 
   const [hideInfoOnMouseOver, setHideInfoOnMouseOver] =
     useState<boolean>(false);
@@ -97,11 +97,21 @@ export const NextPerson: FC<NextPersonProps> = ({
   }, [currentUserId, doNextPerson]);
 
   if (nextPersonResponse?.nextPerson === null) {
-    return (
-      <ErrorMessage
-        message={translate(`error.${nextPersonResponse?.errorCode}`)}
-      />
-    );
+    switch (nextPersonResponse?.errorCode) {
+      case "noMoreProfilesAvailable":
+        return (
+          <DialogNoMoreProfiles
+            open={true}
+            onClick={() => window.location.reload()}
+          />
+        );
+      default:
+        return (
+          <ErrorMessage
+            message={translate(`error.${nextPersonResponse?.errorCode}`)}
+          />
+        );
+    }
   }
 
   if (checkMatchResponse?.match) {
@@ -112,7 +122,6 @@ export const NextPerson: FC<NextPersonProps> = ({
         personAPhoto={currentUserPhoto}
         personBName={checkMatchResponse?.matchedPerson?.name ?? ""}
         personBPhoto={checkMatchResponse?.matchedPerson?.photo ?? ""}
-        setOpen={setDalogMatchOpen}
       />
     );
   }

@@ -1,5 +1,4 @@
 import { users } from "../fixtures/users";
-import { translate } from "../i18n";
 import { type Person } from "../types/person";
 import { resetAllUsers } from "./db";
 
@@ -9,7 +8,7 @@ type NextPersonRequest = {
 
 export type NextPersonResponse = {
   nextPerson: Person | undefined | null;
-  error?: string;
+  errorCode?: string;
 };
 
 export default function handler({
@@ -18,7 +17,7 @@ export default function handler({
   if (!currentUserId) {
     return {
       nextPerson: null,
-      error: translate("error.currentUserIdIsRequired"),
+      errorCode: "currentUserIdIsRequired",
     };
   }
 
@@ -31,7 +30,7 @@ export default function handler({
   console.log("Shown IDs:", shownIds);
 
   if (!currentUser) {
-    return { nextPerson: null, error: translate("error.userNotFound") };
+    return { nextPerson: null, errorCode: "userNotFound" };
   }
 
   const remainingPersons = users.filter(
@@ -50,6 +49,6 @@ export default function handler({
 
   return {
     nextPerson: null,
-    error: translate("error.noMoreProfilesAvailable"),
+    errorCode: "noMoreProfilesAvailable",
   };
 }

@@ -40,11 +40,7 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
   }, [currentUserId, fetchNextPerson]);
 
   if (response?.nextPerson === null) {
-    return (
-      <ErrorMessage
-        message={response?.error || translate("error.noMoreProfilesAvailable")}
-      />
-    );
+    return <ErrorMessage message={translate(`error.${response?.errorCode}`)} />;
   }
 
   return (

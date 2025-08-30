@@ -39,13 +39,9 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
 
   if (response?.nextPerson === null) {
     return (
-      <div className={styles.container}>
-        <ErrorMessage
-          message={
-            response?.error || translate("error.noMoreProfilesAvailable")
-          }
-        />
-      </div>
+      <ErrorMessage
+        message={response?.error || translate("error.noMoreProfilesAvailable")}
+      />
     );
   }
 
@@ -53,7 +49,6 @@ export const NextPerson: FC<NextPersonProps> = ({ currentUserId }) => {
     <div className={styles.container}>
       <ImageListItem component={"div"}>
         <MainImage
-          loading={response?.nextPerson === undefined}
           imageSrc={response?.nextPerson?.photo || ""}
           imageAlt={response?.nextPerson?.name || ""}
           onLoad={() => setMainImageLoaded(true)}

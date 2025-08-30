@@ -33,19 +33,18 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-
       <Header currentUser={currentUser} />
-      {currentUser ? (
-        <Container maxWidth="xs">
+      <Container maxWidth="xs">
+        {currentUser ? (
           <NextPerson currentUserId={currentUser.id} />
-        </Container>
-      ) : (
-        <ErrorMessage
-          message={translate("error.noUsersAvailable")}
-          showReload
-          onClick={init}
-        />
-      )}
+        ) : (
+          <ErrorMessage
+            message={translate("error.noUsersAvailable")}
+            showReload
+            onClick={init}
+          />
+        )}
+      </Container>
     </>
   );
 };

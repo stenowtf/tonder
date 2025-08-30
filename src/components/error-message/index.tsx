@@ -23,6 +23,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
           </Button>
         ) : null
       }
+      sx={{ marginTop: 2 }}
     >
       {message}
     </Alert>

@@ -1,5 +1,6 @@
 import { users } from "../fixtures/users";
 import { type Person } from "../types/person";
+import { printDebugInfo } from "../utils/print-debug-info";
 
 let allUsers: Person[] = users;
 
@@ -34,12 +35,9 @@ export const getRemainingUsers = (id: number) => {
 };
 
 export const updateCurrentUser = (updatedUser: Person) => {
-  console.log("Updating user:", updatedUser);
-  console.log("Before update, allUsers:", allUsers);
-
   allUsers = allUsers.map((user) =>
     user.id === updatedUser.id ? updatedUser : user
   );
 
-  console.log("After update, allUsers:", allUsers);
+  printDebugInfo(allUsers, updatedUser.id);
 };

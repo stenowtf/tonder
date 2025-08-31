@@ -27,8 +27,9 @@ export const Header: FC<HeaderProps> = ({
             component="div"
             noWrap
             className={styles.title}
+            role="heading"
           >
-            {translate("tonder")}
+            {translate("title")}
           </Typography>
 
           {currentUserName && currentUserPhoto && (
@@ -36,7 +37,10 @@ export const Header: FC<HeaderProps> = ({
               <Typography noWrap component="div" variant="body1">
                 {currentUserName}
               </Typography>
-              <Avatar alt={currentUserName} src={currentUserPhoto} />
+              <Avatar
+                alt={`${translate("profileAlt")} ${currentUserName}`}
+                src={currentUserPhoto}
+              />
             </Box>
           )}
         </Toolbar>

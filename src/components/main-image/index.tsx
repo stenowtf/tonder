@@ -27,6 +27,7 @@ export const MainImage: FC<MainImageProps> = ({
       onLoad={() => setMainImageLoaded(true)}
       onMouseOver={() => setHideInfoOnMouseOver(true)}
       onMouseOut={() => setHideInfoOnMouseOver(false)}
+      onError={() => setMainImageLoaded(false)}
       fetchPriority="high"
     />
   );

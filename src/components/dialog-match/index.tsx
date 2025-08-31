@@ -34,13 +34,13 @@ export const DialogMatch: FC<DialogMatchProps> = ({
       aria-describedby="dialog-match-description"
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="dialog-match-title">
-        {translate("match.itsAMatch")}
+        {translate("match.title")}
       </DialogTitle>
       <DialogContent dividers id="dialog-match-description">
         <Typography gutterBottom>
-          {translate("match.youAnd")}
+          {translate("match.message1")}
           <strong> {personBName} </strong>
-          {translate("match.haveLikedEachOther")}
+          {translate("match.message2")}
         </Typography>
         <Box display="flex" gap={1} flexDirection="row">
           <Box flex={1}>
@@ -72,14 +72,14 @@ export const DialogMatch: FC<DialogMatchProps> = ({
             sx={{ sm: { width: "auto", flex: 1 } }}
             onClick={handleBack}
           >
-            {translate("match.back")}
+            {translate("match.ctaBack")}
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
             autoFocus
             sx={{ sm: { width: "auto", flex: 1 } }}
           >
-            {translate("match.startChatting")}
+            {translate("match.ctaStart")}
           </Button>
         </Box>
       </DialogActions>

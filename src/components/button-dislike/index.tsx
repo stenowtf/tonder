@@ -4,10 +4,14 @@ import { type FC } from "react";
 import { translate } from "../../i18n";
 
 type ButtonDislikeProps = {
+  disabled?: boolean;
   onClick: () => void;
 };
 
-export const ButtonDislike: FC<ButtonDislikeProps> = ({ onClick }) => {
+export const ButtonDislike: FC<ButtonDislikeProps> = ({
+  disabled = false,
+  onClick,
+}) => {
   return (
     <Button
       variant="contained"
@@ -16,6 +20,8 @@ export const ButtonDislike: FC<ButtonDislikeProps> = ({ onClick }) => {
       size="large"
       onClick={onClick}
       sx={{ flexGrow: 1 }}
+      disabled={disabled}
+      aria-label={translate("button.dislike")}
     >
       {translate("button.dislike")}
     </Button>

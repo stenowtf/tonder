@@ -11,6 +11,12 @@ export const translate = (key: string, locale: "en" | "it" = defaultLocale) => {
   switch (locale) {
     case "en": {
       const value = getKey(en, key);
+
+      // If the value is an array, return a random string from the array
+      if (Array.isArray(value)) {
+        return value[Math.floor(Math.random() * value.length)];
+      }
+
       return value || key;
     }
     case "it":

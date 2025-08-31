@@ -13,6 +13,10 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
   showReload,
   onClick,
 }) => {
+  if (message === "") {
+    return null;
+  }
+
   return (
     <Alert
       severity="error"

@@ -135,8 +135,10 @@ export const NextPerson: FC<NextPersonProps> = ({
       {nextPersonResponse?.nextPerson ? (
         <ImageListItem component="div">
           <MainImage
-            imageSrc={nextPersonResponse.nextPerson.photo || ""}
-            imageAlt={nextPersonResponse.nextPerson.name || ""}
+            imageSrc={nextPersonResponse.nextPerson.photo}
+            imageAlt={`${translate("profileAlt")} ${
+              nextPersonResponse.nextPerson.name
+            }`}
             setMainImageLoaded={setMainImageLoaded}
             setHideInfoOnMouseOver={setHideInfoOnMouseOver}
           />

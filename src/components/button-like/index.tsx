@@ -4,10 +4,14 @@ import { type FC } from "react";
 import { translate } from "../../i18n";
 
 type ButtonLikeProps = {
+  disabled?: boolean;
   onClick: () => void;
 };
 
-export const ButtonLike: FC<ButtonLikeProps> = ({ onClick }) => {
+export const ButtonLike: FC<ButtonLikeProps> = ({
+  disabled = false,
+  onClick,
+}) => {
   return (
     <Button
       variant="contained"
@@ -16,6 +20,8 @@ export const ButtonLike: FC<ButtonLikeProps> = ({ onClick }) => {
       size="large"
       onClick={onClick}
       sx={{ flexGrow: 1 }}
+      disabled={disabled}
+      aria-label={translate("button.like")}
     >
       {translate("button.like")}
     </Button>

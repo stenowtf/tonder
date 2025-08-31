@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { NextPerson } from "../components/next-person";
+import { NextUser } from "../components/next-user";
 
-vi.mock("../api/next-person", () => ({
+vi.mock("../api/next-user", () => ({
   default: vi.fn(() => ({
-    nextPerson: {
+    nextUser: {
       id: 99,
       name: "Mock User",
       photo: "mock.jpg",
@@ -15,10 +15,10 @@ vi.mock("../api/next-person", () => ({
   })),
 }));
 
-describe("NextPerson", () => {
+describe("NextUser", () => {
   it("renders without crashing", () => {
     render(
-      <NextPerson
+      <NextUser
         currentUserId={1}
         currentUserName="Test"
         currentUserPhoto="test.jpg"
@@ -28,7 +28,7 @@ describe("NextPerson", () => {
 
   it("renders a random user card", async () => {
     render(
-      <NextPerson
+      <NextUser
         currentUserId={1}
         currentUserName="Test"
         currentUserPhoto="test.jpg"

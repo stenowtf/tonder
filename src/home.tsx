@@ -9,12 +9,12 @@ import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "./components/error-message";
 import { Header } from "./components/header";
 import { Loader } from "./components/loader";
-import { NextPerson } from "./components/next-person";
+import { NextUser } from "./components/next-user";
 import { translate } from "./i18n";
-import { type Person } from "./types/person";
+import { type User } from "./types/user";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState<Person | undefined | null>(
+  const [currentUser, setCurrentUser] = useState<User | undefined | null>(
     undefined
   );
 
@@ -40,7 +40,7 @@ const App = () => {
       />
       <Container maxWidth="xs">
         {currentUser ? (
-          <NextPerson
+          <NextUser
             currentUserId={currentUser.id}
             currentUserName={currentUser.name}
             currentUserPhoto={currentUser.photo}

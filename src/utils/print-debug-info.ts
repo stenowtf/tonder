@@ -1,6 +1,6 @@
-import { type Person } from "../types/person";
+import { type User } from "../types/user";
 
-export const printDebugInfo = (users: Person[], currentUserId: number) => {
+export const printDebugInfo = (users: User[], currentUserId: number) => {
   console.table(
     users.map((user) => ({
       id: user.id,

@@ -11,8 +11,8 @@ describe("check-match API", () => {
 
   it("returns error if userAId is missing", () => {
     const res: CheckMatchResponse = checkMatchHandler({
-      userAId: undefined,
-      userBId: 2,
+      userId: undefined,
+      targetId: 2,
     });
     expect(res.errorCode).toBe("userAIdIsRequired");
     expect(res.match).toBe(false);
@@ -20,8 +20,8 @@ describe("check-match API", () => {
 
   it("returns error if userBId is missing", () => {
     const res: CheckMatchResponse = checkMatchHandler({
-      userAId: 1,
-      userBId: undefined,
+      userId: 1,
+      targetId: undefined,
     });
     expect(res.errorCode).toBe("userBIdIsRequired");
     expect(res.match).toBe(false);
@@ -29,8 +29,8 @@ describe("check-match API", () => {
 
   it("returns error if user not found", () => {
     const res: CheckMatchResponse = checkMatchHandler({
-      userAId: 999,
-      userBId: 2,
+      userId: 999,
+      targetId: 2,
     });
     expect(res.errorCode).toBe("userNotFound");
     expect(res.match).toBe(false);
@@ -38,8 +38,8 @@ describe("check-match API", () => {
 
   it("returns match false if not mutual", () => {
     const res: CheckMatchResponse = checkMatchHandler({
-      userAId: 1,
-      userBId: 3,
+      userId: 1,
+      targetId: 3,
     });
     expect(res.match).toBe(false);
   });
@@ -49,10 +49,10 @@ describe("check-match API", () => {
     actionHandler({ currentUserId: 1, likedUserId: 2, action: "like" });
     actionHandler({ currentUserId: 2, likedUserId: 1, action: "like" });
     const res: CheckMatchResponse = checkMatchHandler({
-      userAId: 1,
-      userBId: 2,
+      userId: 1,
+      targetId: 2,
     });
     expect(res.match).toBe(true);
-    expect(res.matchedPerson?.id).toBe(2);
+    expect(res.matchedUser?.id).toBe(2);
   });
 });

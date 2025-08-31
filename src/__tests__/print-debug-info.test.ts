@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { type Person } from "../types/person";
+import { type User } from "../types/user";
 import { printDebugInfo } from "../utils/print-debug-info";
 
 describe("printDebugInfo", () => {
-  const users: Person[] = [
+  const users: User[] = [
     {
       id: 1,
       name: "Alice",

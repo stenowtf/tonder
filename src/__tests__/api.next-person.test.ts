@@ -2,34 +2,34 @@ import { beforeEach, describe, expect, it } from "vitest";
 import * as api from "../api/db";
 
 import actionHandler from "../api/action";
-import nextPersonHandler, { type NextPersonResponse } from "../api/next-person";
+import nextUserHandler, { type NextUserResponse } from "../api/next-user";
 
-describe("next-person API", () => {
+describe("next-user API", () => {
   beforeEach(() => {
     api.resetAllUsers();
   });
 
   it("returns error if currentUserId is missing", () => {
-    const res: NextPersonResponse = nextPersonHandler({
+    const res: NextUserResponse = nextUserHandler({
       currentUserId: undefined,
     });
     expect(res.errorCode).toBe("currentUserIdIsRequired");
-    expect(res.nextPerson).toBeUndefined();
+    expect(res.nextUser).toBeUndefined();
   });
 
   it("returns error if user not found", () => {
-    const res: NextPersonResponse = nextPersonHandler({ currentUserId: 999 });
+    const res: NextUserResponse = nextUserHandler({ currentUserId: 999 });
     expect(res.errorCode).toBe("userNotFound");
-    expect(res.nextPerson).toBeNull();
+    expect(res.nextUser).toBeNull();
   });
 
-  it("returns a next person for valid user", () => {
+  it("returns a next user for valid user", () => {
     const users = api.getAllUsers();
-    const res: NextPersonResponse = nextPersonHandler({
+    const res: NextUserResponse = nextUserHandler({
       currentUserId: users[0].id,
     });
-    expect(res.nextPerson).toBeDefined();
-    expect(res.nextPerson?.id).not.toBe(users[0].id);
+    expect(res.nextUser).toBeDefined();
+    expect(res.nextUser?.id).not.toBe(users[0].id);
   });
 
   it("returns error if no more profiles available", () => {
@@ -42,10 +42,10 @@ describe("next-person API", () => {
         action: "like",
       })
     );
-    const res: NextPersonResponse = nextPersonHandler({
+    const res: NextUserResponse = nextUserHandler({
       currentUserId: users[0].id,
     });
     expect(res.errorCode).toBe("noMoreProfilesAvailable");
-    expect(res.nextPerson).toBeNull();
+    expect(res.nextUser).toBeNull();
   });
 });

@@ -8,10 +8,10 @@ describe("DialogMatch", () => {
     render(
       <DialogMatch
         open={true}
-        personAName="Alice"
-        personAPhoto="/users/alice.jpg"
-        personBName="Bob"
-        personBPhoto="/users/bob.jpg"
+        userAName="Alice"
+        userAPhoto="/users/alice.jpg"
+        userBName="Bob"
+        userBPhoto="/users/bob.jpg"
         handleBack={handleBack}
       />
     );
@@ -25,10 +25,10 @@ describe("DialogMatch", () => {
     render(
       <DialogMatch
         open={true}
-        personAName="Alice"
-        personAPhoto="/users/alice.jpg"
-        personBName="Bob"
-        personBPhoto="/users/bob.jpg"
+        userAName="Alice"
+        userAPhoto="/users/alice.jpg"
+        userBName="Bob"
+        userBPhoto="/users/bob.jpg"
         handleBack={handleBack}
       />
     );
@@ -42,10 +42,10 @@ describe("DialogMatch", () => {
     const { queryByRole } = render(
       <DialogMatch
         open={false}
-        personAName="Alice"
-        personAPhoto="/users/alice.jpg"
-        personBName="Bob"
-        personBPhoto="/users/bob.jpg"
+        userAName="Alice"
+        userAPhoto="/users/alice.jpg"
+        userBName="Bob"
+        userBPhoto="/users/bob.jpg"
         handleBack={handleBack}
       />
     );

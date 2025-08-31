@@ -12,19 +12,19 @@ import { translate } from "../../i18n";
 
 type DialogMatchProps = {
   open: boolean;
-  personAName: string;
-  personAPhoto: string;
-  personBName: string;
-  personBPhoto: string;
+  userAName: string;
+  userAPhoto: string;
+  userBName: string;
+  userBPhoto: string;
   handleBack: () => void;
 };
 
 export const DialogMatch: FC<DialogMatchProps> = ({
   open,
-  personAName,
-  personAPhoto,
-  personBName,
-  personBPhoto,
+  userAName,
+  userAPhoto,
+  userBName,
+  userBPhoto,
   handleBack,
 }) => {
   return (
@@ -39,21 +39,21 @@ export const DialogMatch: FC<DialogMatchProps> = ({
       <DialogContent dividers id="dialog-match-description">
         <Typography gutterBottom>
           {translate("match.message1")}
-          <strong> {personBName} </strong>
+          <strong> {userBName} </strong>
           {translate("match.message2")}
         </Typography>
         <Box display="flex" gap={1} flexDirection="row">
           <Box flex={1}>
             <img
-              src={personAPhoto}
-              alt={personAName}
+              src={userAPhoto}
+              alt={userAName}
               style={{ width: "100%", borderRadius: "8px" }}
             />
           </Box>
           <Box flex={1}>
             <img
-              src={personBPhoto}
-              alt={personBName}
+              src={userBPhoto}
+              alt={userBName}
               style={{ width: "100%", borderRadius: "8px" }}
             />
           </Box>

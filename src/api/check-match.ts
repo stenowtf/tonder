@@ -1,36 +1,36 @@
-import { type Person } from "../types/person";
+import { type User } from "../types/user";
 import { getUserById } from "./db";
 
 type CheckMatchRequest = {
-  userAId: number | undefined;
-  userBId: number | undefined;
+  userId: number | undefined;
+  targetId: number | undefined;
 };
 
 export type CheckMatchResponse = {
   match: boolean;
-  matchedPerson?: Person;
+  matchedUser?: User;
   errorCode?: string;
 };
 
 export default function handler({
-  userAId,
-  userBId,
+  userId,
+  targetId,
 }: CheckMatchRequest): CheckMatchResponse {
-  if (!userAId) {
-    return { match: false, errorCode: "userAIdIsRequired" };
+  if (!userId) {
+    return { match: false, errorCode: "userIdIsRequired" };
   }
-  if (!userBId) {
-    return { match: false, errorCode: "userBIdIsRequired" };
+  if (!targetId) {
+    return { match: false, errorCode: "targetIdIsRequired" };
   }
 
-  const userA = getUserById(userAId);
-  const userB = getUserById(userBId);
+  const userA = getUserById(userId);
+  const userB = getUserById(targetId);
 
   if (!userA || !userB) {
     return { match: false, errorCode: "userNotFound" };
   }
 
-  const match = userA.liked.includes(userBId) && userB.liked.includes(userAId);
+  const match = userA.liked.includes(targetId) && userB.liked.includes(userId);
 
-  return { match, matchedPerson: match ? userB : undefined };
+  return { match, matchedUser: match ? userB : undefined };
 }

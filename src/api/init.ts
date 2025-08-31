@@ -1,9 +1,9 @@
 import { users } from "../fixtures/users";
-import type { Person } from "../types/person";
+import type { User } from "../types/user";
 import { printDebugInfo } from "../utils/print-debug-info";
 
 type InitResponse = {
-  currentUser: Person | null;
+  currentUser: User | null;
 };
 
 export default function handler(): InitResponse {
